@@ -1,0 +1,148 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    /* box-sizing: border-box; is a CSS property that changes how the width and height of an element are calculated. When set to border-box, the padding and border of an element are included in its total width and height, rather than being added on top.  */
+}
+
+body{
+    background: #eee;
+}
+
+.card{
+    width: 90%;
+    max-width: 470px;
+    background: linear-gradient(135deg, #00feba, #5b548a);
+    color: #fff;
+    margin: 100px auto 0;
+    border-radius: 20px;
+    padding: 40px 35px;
+    text-align: center;
+} 
+
+.search{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search input{
+    border: 0;
+    outline: 0;
+    background: #ebfffc;
+    color: #555;
+    padding: 10px 25px;
+    height: 60px;
+    border-radius: 30px;
+    flex: 1;
+    margin-right: 16px;
+    font-size: 18px;
+}
+
+.search button{
+    border: 0;
+    outline: 0;
+    background: #ebfffc;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+
+}
+
+.search button img{
+    width: 16px;
+}
+
+.weather_icon{
+    width: 170px;
+    margin-top: 30px;
+    user-select: none;
+}
+
+.weather h1{
+    font-size: 80px;
+    font-weight: 500;
+    user-select: none;
+}
+
+.weather h2{
+    font-size: 45px;
+    font-weight: 400;
+    margin-top: -10px;
+    user-select: none;
+}
+
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 50px;
+    user-select: none;
+}
+
+.col{
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.col img{
+    width: 40px;
+    margin-right: 10px;
+}
+
+.humidity , .wind{
+    font-size: 28px;
+    margin-top: -6px;
+}
+
+.weather{
+    display:none;
+}
+
+.error{
+    text-align: left;
+    margin-left: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+    display: none;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    display: flex;
+    gap: 10px;
+}
+
+.theme-toggle img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    filter: drop-shadow(0 0 2px #00000050);
+}
+
+body.dark {
+    background: #1e1e1e;
+}
+
+body.dark .card {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    color: #fff;
+}
+
+body.dark .search input,
+body.dark .search button {
+    background: #333;
+    color: #fff;
+}
