@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_icon/favicon-16x16.png">
+    <link rel="manifest" href="favicon_icon/site.webmanifest">
+</head>
+
+<body>
+    <div class="theme-toggle">
+        <img src="images/moon.svg" alt="Toggle Theme" id="theme-icon">
+    </div>
+
+
+    <div class="card">
+        <div class="search">
+            <input type="search" placeholder="Enter city name" spellcheck="false">
+            <button><img src="images/search.png" alt="search_icon"></button>
+        </div>
+        <div class="error">
+            <p>Invalid city name</p>
+        </div>
+
+        <div class="weather">
+            <img src="images/rain.png" alt="weather_icon" class="weather_icon">
+            <h1 class="temp">22°C</h1>
+            <h2 class="city">New York</h2>
+
+            <div class="details">
+                <div class="col">
+                    <img src="images/humidity.png" alt="humidity_icon">
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <img src="images/wind.png" alt="wind">
+                    <div>
+                        <p class="wind">15 km/hr</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
