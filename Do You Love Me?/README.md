@@ -1,25 +1,37 @@
-# 💖 Do You Love Me?
+# Do You Love Me?
 
-An interactive romantic-themed web page with animations, music, and playful UI interactions built using HTML, CSS, and JavaScript.
-
----
-
-## 🛠️ Tech Stack
-
-- HTML5
-- CSS3 (Flexbox, Animations, Glassmorphism)
-- Vanilla JavaScript (DOM Manipulation, Events)
-- Lottie Web Components (`@lottiefiles/dotlottie-wc`)
-- HTML5 Audio API
-- Giphy (GIF integration)
+An interactive romantic-themed web application featuring animations, playful UI interactions, background music, and smooth visual effects built using HTML, CSS, and vanilla JavaScript.
 
 ---
 
-## 📁 Project Structure
+## Overview
+
+This project is a fun, interactive webpage designed to create an engaging romantic UI experience. It includes animated buttons, dynamic responses, background music, and visual elements like GIFs and Lottie animations.
+
+---
+
+## Tech Stack
+
+- HTML5 – Structure of the application  
+- CSS3 – Styling, Flexbox layout, animations, glassmorphism effects  
+- JavaScript (Vanilla) – DOM manipulation, event handling, UI logic  
+- Lottie Web Components (`@lottiefiles/dotlottie-wc`) – High-quality animations  
+- HTML5 Audio API – Background music playback  
+- Giphy API / GIF embeds – Animated visual elements  
+
+---
+
+## Project Structure
+
+```
+
 project/
-│── index.html
-│── song.mp3
-│── README.md
+│── index.html        # Main application file
+│── song.mp3          # Background music file
+│── README.md         # Project documentation
 
-##Link
+```
 
+---
+
+## Link
