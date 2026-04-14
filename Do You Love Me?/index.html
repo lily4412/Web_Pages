@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.10/dist/dotlottie-wc.js" type="module"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg-a:#fff0f8;--bg-b:#ffe0f0;--bg-c:#ffd0e8;
+  --card-bg:rgba(255,255,255,0.82);
+  --card-border:rgba(255,150,195,0.35);
+  --title:#e8317a;--subtitle:#d4659a;
+  --yes-a:#a8e6a3;--yes-b:#6ed468;--yes-text:#1a5c18;
+  --no-a:#ffb3c6;--no-b:#ff6b9d;--no-text:#7a0030;
+  --chip-bg:rgba(255,200,230,0.55);--chip-border:rgba(255,130,180,0.4);
+  --vol-track:#f4a7c9;--vol-thumb:#e8317a;
+  --toggle-bg:rgba(255,220,238,0.75);--toggle-border:rgba(255,150,200,0.4);
+}
+body.dark{
+  --bg-a:#18050f;--bg-b:#250c18;--bg-c:#1a0813;
+  --card-bg:rgba(40,10,28,0.82);
+  --card-border:rgba(220,80,140,0.35);
+  --title:#ff85b8;--subtitle:#d46090;
+  --yes-a:#1e5c1c;--yes-b:#2d8a2a;--yes-text:#b8f0b4;
+  --no-a:#5c1428;--no-b:#a0254d;--no-text:#ffb3cc;
+  --chip-bg:rgba(90,20,50,0.6);--chip-border:rgba(200,60,110,0.4);
+  --vol-track:#6b2040;--vol-thumb:#ff85b8;
+  --toggle-bg:rgba(60,15,35,0.85);--toggle-border:rgba(200,70,120,0.45);
+}
+
+body{
+  min-height:100vh;
+  background:radial-gradient(ellipse at 20% 10%,var(--bg-a) 0%,var(--bg-b) 50%,var(--bg-c) 100%);
+  font-family:'Segoe UI',Arial,sans-serif;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;transition:background 0.5s;
+}
+
+/* ── CARD ── */
+.card{
+  background:var(--card-bg);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1.5px solid var(--card-border);
+  border-radius:36px;
+  padding:48px 60px 44px;
+  text-align:center;
+  position:relative;z-index:10;
+  max-width:520px;width:90vw;
+  box-shadow:0 8px 48px rgba(232,49,122,0.13),0 2px 12px rgba(232,49,122,0.08);
+}
+
+/* little floating stars decoration on card */
+.card::before{
+  content:'✦ ✦ ✦';
+  display:block;font-size:11px;letter-spacing:8px;
+  color:var(--subtitle);opacity:0.5;margin-bottom:10px;
+}
+
+/* ── TITLE ── */
+.title-row{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  margin-bottom:32px;
+}
+h1{
+  color:var(--title);font-size:28px;font-weight:700;
+  letter-spacing:0.3px;line-height:1.2;
+}
+.title-lottie{width:46px;height:46px;animation:hb 1.2s ease-in-out infinite}
+@keyframes hb{0%,100%{transform:scale(1)}50%{transform:scale(1.28) rotate(-6deg)}}
+
+/* ── BUTTONS ── */
+.btn-row{display:flex;gap:16px;justify-content:center;margin-bottom:20px}
+
+.kawaii-btn{
+  position:relative;
+  padding:0;border:none;border-radius:26px;cursor:pointer;
+  display:flex;align-items:center;gap:0;overflow:hidden;
+  transition:transform 0.18s cubic-bezier(.34,1.56,.64,1),box-shadow 0.18s;
+  font-family:inherit;
+}
+.kawaii-btn:hover{transform:scale(1.07) translateY(-2px)}
+.kawaii-btn:active{transform:scale(0.95)}
+
+.btn-inner{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 24px 14px 20px;
+  font-size:17px;font-weight:700;letter-spacing:0.3px;
+  border-radius:26px;
+}
+
+/* YES */
+#yes .btn-inner{
+  background:linear-gradient(135deg,var(--yes-a),var(--yes-b));
+  color:var(--yes-text);
+  box-shadow:0 4px 20px rgba(80,200,80,0.28),inset 0 1px 0 rgba(255,255,255,0.4);
+}
+#yes:hover .btn-inner{box-shadow:0 8px 28px rgba(80,200,80,0.40),inset 0 1px 0 rgba(255,255,255,0.4)}
+
+/* NO */
+/* #no{position:fixed;z-index:999} */
+#no{position:relative;z-index:1}
+#no .btn-inner{
+  background:linear-gradient(135deg,var(--no-a),var(--no-b));
+  color:var(--no-text);
+  box-shadow:0 4px 20px rgba(220,50,120,0.28),inset 0 1px 0 rgba(255,255,255,0.35);
+}
+#no:hover .btn-inner{box-shadow:0 8px 28px rgba(220,50,120,0.42),inset 0 1px 0 rgba(255,255,255,0.35)}
+
+#no {
+  /* transition: left 0.25s ease, top 0.25s ease; */
+
+  transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+}
+
+dotlottie-wc.btn-icon{width:52px;height:52px}
+
+/* pill label on buttons */
+.btn-pill{
+  position:absolute;top:-2px;
+  background:white;border:1.5px solid var(--card-border);
+  border-radius:20px;padding:2px 10px;
+  font-size:11px;font-weight:700;color:var(--title);
+  letter-spacing:0.5px;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(232,49,122,0.15);
+}
+#yes .btn-pill{right:-4px}
+#no .btn-pill{left:-4px}
+
+/* ── RESPONSE ── */
+#response{
+  color:var(--title);font-size:20px;font-weight:700;
+  min-height:28px;margin-top:4px;
+  animation:none;
+}
+#response.show{animation:popIn 0.4s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes popIn{from{transform:scale(0.7);opacity:0}to{transform:scale(1);opacity:1}}
+
+#gif{
+  display:none;margin:16px auto 0;width:170px;
+  border-radius:20px;
+  border:3px solid var(--card-border);
+  box-shadow:0 4px 20px rgba(232,49,122,0.18);
+}
+
+/* ── SPARKLE ROW (below card) ── */
+.sparkle-row{
+  display:flex;gap:8px;margin-top:16px;z-index:10;position:relative;
+  align-items:center;justify-content:center;opacity:0.7;
+}
+.sparkle-row span{font-size:13px;color:var(--subtitle);letter-spacing:2px}
+
+/* ── TOP-RIGHT MODE TOGGLE ── */
+#mode-toggle{
+  position:fixed;top:16px;right:16px;z-index:1000;
+  background:var(--toggle-bg);border:1.5px solid var(--toggle-border);
+  border-radius:50px;padding:9px 18px;
+  cursor:pointer;display:flex;align-items:center;gap:8px;
+  backdrop-filter:blur(10px);transition:all 0.3s;
+}
+#mode-toggle:hover{transform:scale(1.06)}
+.mode-label{font-size:13px;font-weight:700;color:var(--title);font-family:inherit}
+
+/* ── BOTTOM-LEFT VOLUME ── */
+#vol-ctrl{
+  position:fixed;bottom:16px;left:16px;z-index:1000;
+  background:var(--toggle-bg);border:1.5px solid var(--toggle-border);
+  border-radius:50px;padding:10px 18px;
+  display:flex;align-items:center;gap:10px;
+  backdrop-filter:blur(10px);
+}
+.vol-label{font-size:13px;font-weight:700;color:var(--title);cursor:pointer;font-family:inherit}
+#vol-slider{
+  -webkit-appearance:none;appearance:none;
+  width:88px;height:4px;border-radius:4px;
+  background:var(--vol-track);outline:none;cursor:pointer;border:none;
+}
+#vol-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:17px;height:17px;border-radius:50%;
+  background:var(--vol-thumb);cursor:pointer;
+  border:2.5px solid white;
+  box-shadow:0 1px 4px rgba(0,0,0,0.18);
+}
+
+/* ── FLOATING HEARTS ── */
+.fheart{
+  position:fixed;pointer-events:none;bottom:-130px;
+  animation:floatUp linear forwards;z-index:1;
+}
+@keyframes floatUp{
+  0%{opacity:1;transform:translateY(0) rotate(-8deg) scale(1)}
+  50%{opacity:0.85;transform:translateY(-45vh) rotate(9deg) scale(1.08)}
+  85%{opacity:0.5}
+  100%{opacity:0;transform:translateY(-115vh) rotate(-5deg) scale(0.75)}
+}
+</style>
+</head>
+<body>
+
+<!-- MODE TOGGLE -->
+<button id="mode-toggle" onclick="toggleMode()">
+  <span id="mode-sun" style="font-size:16px">🌙</span>
+  <span class="mode-label" id="mode-label">Dark</span>
+</button>
+
+<!-- VOLUME -->
+<div id="vol-ctrl">
+  <span class="vol-label" id="vol-icon" onclick="toggleMute()">🎵</span>
+  <input type="range" id="vol-slider" min="0" max="100" value="40" step="1" oninput="setVolume(this.value)">
+</div>
+
+<!-- MAIN CARD -->
+<div class="card">
+
+  <div class="title-row">
+    <dotlottie-wc class="title-lottie"
+      src="https://lottie.host/ba558ad3-6e8b-479f-a894-2f3575a003f4/s8ThKxTL61.lottie"
+      autoplay loop></dotlottie-wc>
+    <h1>Do you love me Deepu?</h1>
+    <dotlottie-wc class="title-lottie"
+      src="https://lottie.host/ba558ad3-6e8b-479f-a894-2f3575a003f4/s8ThKxTL61.lottie"
+      autoplay loop></dotlottie-wc>
+  </div>
+
+  <div class="btn-row">
+
+    <!-- YES -->
+    <button id="yes" class="kawaii-btn" onclick="yesClicked()">
+      <div class="btn-inner">
+        <dotlottie-wc class="btn-icon"
+          src="https://lottie.host/fd115a58-39c6-4894-80b3-ef678f48b110/v59wPoa3v6.lottie"
+          autoplay loop></dotlottie-wc>
+        Yes, always!
+      </div>
+      <span class="btn-pill">✨ click me</span>
+    </button>
+
+    <!-- NO (runs away) -->
+    <button id="no" class="kawaii-btn" onmouseover="moveButton()" ontouchstart="moveButton()" onclick="noClicked()">
+      <div class="btn-inner">
+        No...
+        <dotlottie-wc class="btn-icon"
+          src="https://lottie.host/ea044950-1d2b-4a60-b70c-441e33cd4cca/UtVDEOCWdy.lottie"
+          autoplay loop></dotlottie-wc>
+      </div>
+      <span class="btn-pill">can't catch me!</span>
+    </button>
+
+  </div>
+
+  <h2 id="response"></h2>
+  <img id="gif"
+    src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDN6NHQwZDdteHcxZGNjcTFsd2lmcjJ4dmkyMTN2YTJ5OXhveWVpMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/G2ZBGxyeiRSYBwHlB5/giphy.gif"
+    alt="kawaii gif">
+
+</div>
+
+<div class="sparkle-row">
+  <span>✦ &nbsp; made with love &nbsp; ✦</span>
+</div>
+
+<script>
+  /* ── MUSIC ── */
+  const audio = new Audio("song.mp3");
+  audio.loop = true; audio.volume = 1;
+  let muted = false;
+  document.addEventListener('click', () => { if(audio.paused) audio.play().catch(()=>{}); }, {once:true});
+  function setVolume(v){ audio.volume = v/100; muted = v==0; updateVolIcon(); }
+  function toggleMute(){
+    muted = !muted;
+    audio.volume = muted ? 0 : document.getElementById('vol-slider').value/100;
+    document.getElementById('vol-slider').value = muted ? 0 : document.getElementById('vol-slider').value;
+    updateVolIcon();
+  }
+  function updateVolIcon(){
+    document.getElementById('vol-icon').textContent = (muted||audio.volume==0) ? '🔇' : '🎵';
+  }
+
+  /* ── DARK / LIGHT ── */
+  let dark = false;
+  function toggleMode(){
+    dark = !dark;
+    document.body.classList.toggle('dark', dark);
+    document.getElementById('mode-sun').textContent = dark ? '☀️' : '🌙';
+    document.getElementById('mode-label').textContent = dark ? 'Light' : 'Dark';
+  }
+
+  /* ── BUTTONS ── */
+  function yesClicked(){
+    const r = document.getElementById('response');
+    r.className = '';
+    void r.offsetWidth;
+    r.textContent = '✨ I knew it! 💖';
+    r.className = 'show';
+    document.getElementById('gif').style.display = 'block';
+  }
+
+  /* ── BUTTONS ── */
+
+function noClicked() {
+  const r = document.getElementById('response');
+
+  r.className = '';
+  void r.offsetWidth;
+
+  const messages = [
+    'Aww 😢 are you sure?',
+    'Really? Think again 🥺',
+    'My heart feels a little sad 💔',
+    'You just broke a tiny heart 😭',
+    'Okay… I still like you 💖',
+    'Last chance to change your mind 💭',
+    'I’ll be waiting for your YES 💘'
+  ];
+
+  // pick message based on how many times NO is clicked
+  if (!window.noCount) window.noCount = 0;
+
+  r.textContent = messages[window.noCount];
+
+  window.noCount++;
+
+  if (window.noCount >= messages.length) {
+    window.noCount = 0;
+  }
+
+  r.className = 'show';
+}
+
+//   function moveButton(){
+//     const b = document.getElementById('no');
+//     const mx = window.innerWidth  - b.offsetWidth  - 24;
+//     const my = window.innerHeight - b.offsetHeight - 24;
+//     b.style.left = Math.max(12, Math.random()*mx) + 'px';
+//     b.style.top  = Math.max(12, Math.random()*my) + 'px';
+//   }
+  
+function moveButton() {
+  const b = document.getElementById('no');
+
+  const btnW = b.offsetWidth;
+  const btnH = b.offsetHeight;
+
+  // 60% central safe area
+  const safeWidth = window.innerWidth * 0.4;
+  const safeHeight = window.innerHeight * 0.4;
+
+  // center offset (so box is centered on screen)
+  const startX = window.innerWidth * 0.2;
+  const startY = window.innerHeight * 0.2;
+
+  // random position inside safe zone
+  const x = startX + Math.random() * (safeWidth - btnW);
+  const y = startY + Math.random() * (safeHeight - btnH);
+
+  b.style.position = "fixed";
+  b.style.left = `${x}px`;
+  b.style.top = `${y}px`;
+}
+  
+
+  /* ── FLOATING LOTTIE HEARTS ── */
+  const SRCS = [
+    "https://lottie.host/ba558ad3-6e8b-479f-a894-2f3575a003f4/s8ThKxTL61.lottie",
+    // "https://lottie.host/fd115a58-39c6-4894-80b3-ef678f48b110/v59wPoa3v6.lottie",
+  ];
+  const SIZES = [55,68,80,92,108,72,62,86];
+
+  function spawnHeart(){
+    const el = document.createElement('dotlottie-wc');
+    el.setAttribute('src', SRCS[Math.floor(Math.random()*SRCS.length)]);
+    el.setAttribute('autoplay',''); el.setAttribute('loop','');
+    el.classList.add('fheart');
+    const sz = SIZES[Math.floor(Math.random()*SIZES.length)];
+    el.style.width = sz+'px'; el.style.height = sz+'px';
+    el.style.left = (Math.random()*100)+'vw';
+    const dur = 4.2 + Math.random()*4.8;
+    el.style.animationDuration = dur+'s';
+    el.style.animationDelay = (Math.random()*0.6)+'s';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(), (dur+2)*1000);
+  }
+
+  setInterval(spawnHeart, 190);
+  for(let i=0;i<12;i++) setTimeout(spawnHeart, i*140);
+</script>
+
+</body>
+</html>
