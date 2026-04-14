@@ -304,6 +304,10 @@ dotlottie-wc.btn-icon{width:52px;height:52px}
 
 function noClicked() {
   const r = document.getElementById('response');
+  const gif = document.getElementById('gif');
+
+  // hide GIF when NO is clicked
+  gif.style.display = 'none';
 
   r.className = '';
   void r.offsetWidth;
